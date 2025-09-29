@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panopto Caption Downloader - Working Solution</title>
+    <title>Panopto Caption Extractor - Working Solution</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .gradient-text {
@@ -11,72 +11,85 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: left;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            overflow-x: auto;
+        }
+        .result-box {
+            background-color: #f0fdf4;
+            border: 1px solid #dcfce7;
+            color: #16a34a;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+        .error-box {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #ef4444;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-4xl w-full">
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold gradient-text mb-4">Panopto Caption Downloader</h1>
-            <p class="text-slate-600 text-lg">Extract captions from Panopto videos using multiple working methods</p>
+            <h1 class="text-4xl font-bold gradient-text mb-4">🔧 Panopto Working Extractor</h1>
+            <p class="text-slate-600 text-lg">Choose the method that works best for you to extract content from Panopto videos.</p>
         </div>
 
-        <div class="space-y-6">
-            <!-- Method Selection -->
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <h2 class="text-blue-800 font-semibold text-lg mb-4">Choose Your Extraction Method:</h2>
-                <div class="space-y-3">
-                    <button id="bookmarklet-method" class="w-full text-left p-4 bg-white border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors">
-                        <div class="flex items-center space-x-3">
-                            <span class="text-2xl">📌</span>
-                            <div>
-                                <div class="font-semibold text-blue-800">Bookmarklet Method (Recommended)</div>
-                                <div class="text-sm text-blue-600">Runs directly in your browser on the Panopto page</div>
-                            </div>
-                        </div>
-                    </button>
-                    <button id="manual-method" class="w-full text-left p-4 bg-white border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors">
-                        <div class="flex items-center space-x-3">
-                            <span class="text-2xl">✋</span>
-                            <div>
-                                <div class="font-semibold text-blue-800">Manual Console Method</div>
-                                <div class="text-sm text-blue-600">Copy and paste script into browser console</div>
-                            </div>
-                        </div>
-                    </button>
-                </div>
+        <div class="flex justify-center space-x-4 mb-6">
+            <button id="bookmarklet-tab" class="px-6 py-3 rounded-lg font-semibold transition-all bg-blue-100 text-blue-800 border border-blue-300">📌 Bookmarklet Method</button>
+            <button id="manual-tab" class="px-6 py-3 rounded-lg font-semibold transition-all border border-slate-300 text-slate-600 hover:bg-slate-50">✋ Manual Method</button>
+        </div>
+
+        <!-- Bookmarklet Method -->
+        <div id="bookmarklet-content" class="space-y-6">
+            <h2 class="text-2xl font-bold text-blue-700">📌 Bookmarklet Method (Recommended)</h2>
+            <p class="text-slate-700">This method runs directly in your browser on the Panopto page, bypassing most restrictions. It's the most reliable.</p>
+            
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left space-y-3">
+                <p class="font-semibold text-blue-800">How to use:</p>
+                <ol class="list-decimal list-inside text-blue-700 space-y-1">
+                    <li><strong>Drag this link</strong> to your browser's bookmarks bar:</li>
+                    <li><a href="javascript:(function(){var script=document.createElement('script');script.src='data:text/javascript,'+encodeURIComponent('(function() { console.log(\'🔍 Starting Panopto extraction...\'); let captions = []; let slides = []; let metadata = {}; try { if (window.PanoptoViewer && window.PanoptoViewer.deliveryInfo) { const info = window.PanoptoViewer.deliveryInfo; console.log(\'✅ Found PanoptoViewer.deliveryInfo\'); if (info.CaptionSegments && Array.isArray(info.CaptionSegments)) { captions = info.CaptionSegments.map(seg => ({ start: seg.StartTime || 0, end: seg.EndTime || 0, text: seg.Text || \'\' })); console.log(\'✅ Extracted\', captions.length, \'captions from PanoptoViewer\'); } if (info.TableOfContents && Array.isArray(info.TableOfContents)) { slides = info.TableOfContents.map(slide => ({ time: slide.Time || 0, title: slide.Title || \'\', imageUrl: slide.ImageUrl || \'\' })); console.log(\'✅ Extracted\', slides.length, \'slides from PanoptoViewer\'); } metadata = { title: info.Title || \'Panopto Video\', description: info.Description || \'\', duration: info.Duration || 0, creator: info.Creator || \'\', created: info.CreatedDate || \'\', sessionId: info.SessionID || \'\' }; } else if (window.Panopto && window.Panopto.data && window.Panopto.data.session) { const session = window.Panopto.data.session; console.log(\'✅ Found Panopto.data.session\'); metadata = { title: session.Name || \'Panopto Video\', description: session.Description || \'\', duration: session.Duration || 0, creator: session.Creator || \'\', created: session.CreatedDate || \'\', sessionId: session.Id || \'\' }; } if (captions.length === 0) { console.log(\'🎯 DOM scraping for captions...\'); const captionSelectors = [\'.caption-line\', \'.caption-text\', \'[class*="caption"]\', \'.transcript-line\', \'.subtitle-line\', \'.caption\', \'.transcript\']; for (const selector of captionSelectors) { const elements = document.querySelectorAll(selector); if (elements.length > 0) { console.log(\'✅ Found\', elements.length, \'caption elements with selector:\', selector); elements.forEach((el, index) => { const text = el.textContent?.trim(); if (text && text.length > 3) { captions.push({ start: index * 5, end: (index + 1) * 5, text: text }); } }); break; } } } if (captions.length === 0) { console.log(\'🎯 Looking for any caption-like text...\'); const allText = document.body.textContent; const lines = allText.split(\'\\n\').filter(line => line.trim().length > 10 && line.trim().length < 200 && !line.includes(\'Panopto\') && !line.includes(\'Sign in\') && !line.includes(\'Help\') && !line.includes(\'Settings\') && !line.includes(\'Microsoft\') && !line.includes(\'QUB\')); if (lines.length > 0) { console.log(\'✅ Found\', lines.length, \'potential caption lines\'); lines.forEach((line, index) => { captions.push({ start: index * 5, end: (index + 1) * 5, text: line.trim() }); }); } } const transcript = captions.map(c => c.text).join(\' \'); console.log(\'📊 Final extraction results:\', { captions: captions.length, slides: slides.length, metadata: Object.keys(metadata).length }); const result = { success: true, captions: captions, slides: slides, metadata: metadata, transcript: transcript, extractionMethod: \'Bookmarklet Extraction\' }; console.log(\'🎯 Final extraction result:\', result); const popup = window.open(\'\', \'extraction-results\', \'width=800,height=600,scrollbars=yes\'); popup.document.write(\'<html><head><title>Panopto Extraction Results</title><style>body{font-family:Arial,sans-serif;padding:20px;background:#f8fafc;}h1{color:#1e40af;}textarea{width:100%;height:300px;padding:10px;border:1px solid #ccc;border-radius:5px;font-family:monospace;font-size:12px;margin:10px 0;}button{background:#3b82f6;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;margin:5px;}button:hover{background:#2563eb;}</style></head><body><h1>✅ Panopto Extraction Successful!</h1><h2>Video: \' + result.metadata.title + \'</h2><p><strong>Captions:</strong> \' + result.captions.length + \' segments</p><p><strong>Slides:</strong> \' + result.slides.length + \' items</p><h3>Transcript:</h3><textarea>\' + result.transcript + \'</textarea><br><br><button onclick="navigator.clipboard.writeText(document.querySelector(\\\'textarea\\\').value); alert(\\\'Transcript copied to clipboard!\\\');">📋 Copy Transcript</button><button onclick="window.close();">Close</button></body></html>\'); return result; } catch (error) { console.error(\'❌ Extraction error:\', error); alert(\'Extraction failed: \' + error.message); return { success: false, error: error.message, captions: [], slides: [], metadata: {} }; } })();');document.head.appendChild(script);})();" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">📌 Panopto Extractor</a></li>
+                    <li>Go to your Panopto video (e.g., <a href="https://qub.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e0620056-34a6-47d4-ab36-b30800ae2bf1" target="_blank" class="text-blue-500 underline">QUB Panopto</a>) and sign in.</li>
+                    <li>Click the "Panopto Extractor" bookmarklet in your bookmarks bar.</li>
+                    <li>A new window will pop up with the extracted content.</li>
+                </ol>
+                <p class="text-sm text-blue-600">If dragging doesn't work, right-click your bookmarks bar, choose "Add page" or "New bookmark", paste the code into the URL field, and name it.</p>
+            </div>
+        </div>
+
+        <!-- Manual Method -->
+        <div id="manual-content" class="hidden space-y-6">
+            <h2 class="text-2xl font-bold text-blue-700">✋ Manual Method (Fallback)</h2>
+            <p class="text-slate-700">If all else fails, this method allows you to manually run a script in your browser's console.</p>
+            
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left space-y-3">
+                <p class="font-semibold text-blue-800">How to use:</p>
+                <ol class="list-decimal list-inside text-blue-700 space-y-1">
+                    <li>Go to your Panopto video (e.g., <a href="https://qub.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e0620056-34a6-47d4-ab36-b30800ae2bf1" target="_blank" class="text-blue-500 underline">QUB Panopto</a>) and sign in.</li>
+                    <li>Press <kbd class="bg-gray-200 px-2 py-1 rounded text-sm">F12</kbd> to open Developer Tools, then go to the <kbd class="bg-gray-200 px-2 py-1 rounded text-sm">Console</kbd> tab.</li>
+                    <li>Copy the script below.</li>
+                    <li>Paste it into the console and press <kbd class="bg-gray-200 px-2 py-1 rounded text-sm">Enter</kbd>.</li>
+                    <li>A new window will pop up with the extracted content.</li>
+                </ol>
             </div>
 
-            <!-- Bookmarklet Method -->
-            <div id="bookmarklet-content" class="hidden">
-                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
-                    <h3 class="text-green-800 font-semibold text-lg mb-4">📌 Bookmarklet Method</h3>
-                    <div class="space-y-4">
-                        <div class="bg-white border border-green-200 rounded-lg p-4">
-                            <p class="text-green-700 font-medium mb-2">Step 1: Drag this link to your bookmarks bar:</p>
-                            <a href="javascript:(function(){var script=document.createElement('script');script.src='data:text/javascript,'+encodeURIComponent(`(function() { console.log('🔍 Starting Panopto extraction...'); let captions = []; let slides = []; let metadata = {}; try { if (window.PanoptoViewer && window.PanoptoViewer.deliveryInfo) { const info = window.PanoptoViewer.deliveryInfo; console.log('✅ Found PanoptoViewer.deliveryInfo'); if (info.CaptionSegments && Array.isArray(info.CaptionSegments)) { captions = info.CaptionSegments.map(seg => ({ start: seg.StartTime || 0, end: seg.EndTime || 0, text: seg.Text || '' })); console.log('✅ Extracted', captions.length, 'captions from PanoptoViewer'); } if (info.TableOfContents && Array.isArray(info.TableOfContents)) { slides = info.TableOfContents.map(slide => ({ time: slide.Time || 0, title: slide.Title || '', imageUrl: slide.ImageUrl || '' })); console.log('✅ Extracted', slides.length, 'slides from PanoptoViewer'); } metadata = { title: info.Title || 'Panopto Video', description: info.Description || '', duration: info.Duration || 0, creator: info.Creator || '', created: info.CreatedDate || '', sessionId: info.SessionID || '' }; } else if (window.Panopto && window.Panopto.data && window.Panopto.data.session) { const session = window.Panopto.data.session; console.log('✅ Found Panopto.data.session'); metadata = { title: session.Name || 'Panopto Video', description: session.Description || '', duration: session.Duration || 0, creator: session.Creator || '', created: session.CreatedDate || '', sessionId: session.Id || '' }; } if (captions.length === 0) { console.log('🎯 DOM scraping for captions...'); const captionSelectors = ['.caption-line', '.caption-text', '[class*=\"caption\"]', '.transcript-line', '.subtitle-line', '.caption', '.transcript']; for (const selector of captionSelectors) { const elements = document.querySelectorAll(selector); if (elements.length > 0) { console.log('✅ Found', elements.length, 'caption elements with selector:', selector); elements.forEach((el, index) => { const text = el.textContent?.trim(); if (text && text.length > 3) { captions.push({ start: index * 5, end: (index + 1) * 5, text: text }); } }); break; } } } if (captions.length === 0) { console.log('🎯 Looking for any caption-like text...'); const allText = document.body.textContent; const lines = allText.split('\\n').filter(line => line.trim().length > 10 && line.trim().length < 200 && !line.includes('Panopto') && !line.includes('Sign in') && !line.includes('Help') && !line.includes('Settings') && !line.includes('Microsoft') && !line.includes('QUB')); if (lines.length > 0) { console.log('✅ Found', lines.length, 'potential caption lines'); lines.forEach((line, index) => { captions.push({ start: index * 5, end: (index + 1) * 5, text: line.trim() }); }); } } const transcript = captions.map(c => c.text).join(' '); console.log('📊 Final extraction results:', { captions: captions.length, slides: slides.length, metadata: Object.keys(metadata).length }); const result = { success: true, captions: captions, slides: slides, metadata: metadata, transcript: transcript, extractionMethod: 'Bookmarklet Extraction' }; console.log('🎯 Final extraction result:', result); const popup = window.open('', 'extraction-results', 'width=800,height=600,scrollbars=yes'); popup.document.write('<html><head><title>Panopto Extraction Results</title><style>body{font-family:Arial,sans-serif;padding:20px;background:#f8fafc;}h1{color:#1e40af;}textarea{width:100%;height:300px;padding:10px;border:1px solid #ccc;border-radius:5px;font-family:monospace;font-size:12px;margin:10px 0;}button{background:#3b82f6;color:white;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;margin:5px;}button:hover{background:#2563eb;}</style></head><body><h1>✅ Panopto Extraction Successful!</h1><h2>Video: ' + result.metadata.title + '</h2><p><strong>Captions:</strong> ' + result.captions.length + ' segments</p><p><strong>Slides:</strong> ' + result.slides.length + ' items</p><h3>Transcript:</h3><textarea>' + result.transcript + '</textarea><br><br><button onclick=\"navigator.clipboard.writeText(document.querySelector(\\'textarea\\').value); alert(\\'Transcript copied to clipboard!\\');\">📋 Copy Transcript</button><button onclick=\"window.close();\">Close</button></body></html>'); return result; } catch (error) { console.error('❌ Extraction error:', error); alert('Extraction failed: ' + error.message); return { success: false, error: error.message, captions: [], slides: [], metadata: {} }; } })();`);document.head.appendChild(script);})();" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">📌 Panopto Extractor</a>
-                        </div>
-                        <div class="space-y-2">
-                            <p class="text-green-700"><strong>Step 2:</strong> Go to your Panopto video (e.g., <a href="https://qub.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e0620056-34a6-47d4-ab36-b30800ae2bf1" target="_blank" class="text-blue-500 underline">QUB Panopto</a>) and sign in.</p>
-                            <p class="text-green-700"><strong>Step 3:</strong> Click the "Panopto Extractor" bookmarklet in your bookmarks bar.</p>
-                            <p class="text-green-700"><strong>Step 4:</strong> A new window will pop up with the extracted content.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Manual Method -->
-            <div id="manual-content" class="hidden">
-                <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
-                    <h3 class="text-orange-800 font-semibold text-lg mb-4">✋ Manual Console Method</h3>
-                    <div class="space-y-4">
-                        <div class="space-y-2">
-                            <p class="text-orange-700"><strong>Step 1:</strong> Go to your Panopto video (e.g., <a href="https://qub.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e0620056-34a6-47d4-ab36-b30800ae2bf1" target="_blank" class="text-blue-500 underline">QUB Panopto</a>) and sign in.</p>
-                            <p class="text-orange-700"><strong>Step 2:</strong> Press <kbd class="bg-gray-200 px-2 py-1 rounded text-sm">F12</kbd> to open Developer Tools, then go to the <kbd class="bg-gray-200 px-2 py-1 rounded text-sm">Console</kbd> tab.</p>
-                            <p class="text-orange-700"><strong>Step 3:</strong> Copy the script below and paste it into the console.</p>
-                            <p class="text-orange-700"><strong>Step 4:</strong> Press <kbd class="bg-gray-200 px-2 py-1 rounded text-sm">Enter</kbd> to run the script.</p>
-                        </div>
-                        <div class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto">
-                            <pre id="manual-script">(function() {
+            <div class="code-block">
+                <pre><code>(function() {
     console.log('🔍 Starting Panopto extraction...');
     
     let captions = [];
@@ -220,109 +233,45 @@
         alert('Extraction failed: ' + error.message);
         return { success: false, error: error.message, captions: [], slides: [], metadata: {} };
     }
-})();</pre>
-                        </div>
-                        <button onclick="copyManualScript()" class="w-full bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition-colors">
-                            📋 Copy Manual Script
-                        </button>
-                    </div>
-                </div>
+})();</code></pre>
             </div>
-
-            <!-- Results Display -->
-            <div id="results" class="hidden">
-                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
-                    <h3 class="text-green-800 font-semibold text-lg mb-4">✅ Extraction Results</h3>
-                    <div id="results-content"></div>
-                </div>
-            </div>
+            <button onclick="navigator.clipboard.writeText(document.querySelector('#manual-content pre code').textContent); alert('Script copied to clipboard!');" class="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold text-lg transition-colors">
+                📋 Copy Manual Script
+            </button>
         </div>
     </div>
 
     <script>
-        // Method selection
-        document.getElementById('bookmarklet-method').addEventListener('click', () => {
-            document.getElementById('bookmarklet-content').classList.remove('hidden');
-            document.getElementById('manual-content').classList.add('hidden');
-            document.getElementById('results').classList.add('hidden');
-        });
+        const bookmarkletTab = document.getElementById('bookmarklet-tab');
+        const manualTab = document.getElementById('manual-tab');
 
-        document.getElementById('manual-method').addEventListener('click', () => {
-            document.getElementById('manual-content').classList.remove('hidden');
-            document.getElementById('bookmarklet-content').classList.add('hidden');
-            document.getElementById('results').classList.add('hidden');
-        });
+        const bookmarkletContent = document.getElementById('bookmarklet-content');
+        const manualContent = document.getElementById('manual-content');
 
-        // Copy manual script
-        function copyManualScript() {
-            const script = document.getElementById('manual-script').textContent;
-            navigator.clipboard.writeText(script).then(() => {
-                alert('Script copied to clipboard!');
-            }).catch(err => {
-                console.error('Failed to copy script:', err);
-                alert('Failed to copy script. Please select and copy manually.');
+        const tabs = [
+            { button: bookmarkletTab, content: bookmarkletContent },
+            { button: manualTab, content: manualContent },
+        ];
+
+        function activateTab(activeTab) {
+            tabs.forEach(tab => {
+                if (tab === activeTab) {
+                    tab.button.classList.add('bg-blue-100', 'text-blue-800', 'border-blue-300');
+                    tab.button.classList.remove('border-slate-300', 'text-slate-600', 'hover:bg-slate-50');
+                    tab.content.classList.remove('hidden');
+                } else {
+                    tab.button.classList.remove('bg-blue-100', 'text-blue-800', 'border-blue-300');
+                    tab.button.classList.add('border-slate-300', 'text-slate-600', 'hover:bg-slate-50');
+                    tab.content.classList.add('hidden');
+                }
             });
         }
 
-        // Listen for messages from popup windows
-        window.addEventListener('message', (event) => {
-            if (event.data && event.data.type === 'PANOPTO_EXTRACTION_RESULT') {
-                displayResults(event.data.data);
-            }
-        });
+        bookmarkletTab.addEventListener('click', () => activateTab(tabs[0]));
+        manualTab.addEventListener('click', () => activateTab(tabs[1]));
 
-        function displayResults(result) {
-            if (result.success) {
-                document.getElementById('results-content').innerHTML = `
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-green-800">Video: ${result.metadata.title || 'Panopto Video'}</h4>
-                            <p class="text-green-700">Captions: ${result.captions.length} segments</p>
-                            <p class="text-green-700">Slides: ${result.slides.length} items</p>
-                            <p class="text-green-700">Method: ${result.extractionMethod}</p>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-green-800 mb-2">Transcript Preview:</h4>
-                            <div class="bg-white border border-green-200 rounded-lg p-4 max-h-40 overflow-y-auto text-sm">
-                                ${result.transcript.substring(0, 500)}${result.transcript.length > 500 ? '...' : ''}
-                            </div>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button onclick="copyTranscript('${result.transcript.replace(/'/g, "\\'")}')" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                                📋 Copy Transcript
-                            </button>
-                            <button onclick="downloadTranscript('${result.transcript.replace(/'/g, "\\'")}')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                                💾 Download as TXT
-                            </button>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('results').classList.remove('hidden');
-            } else {
-                alert('Extraction failed: ' + result.error);
-            }
-        }
-
-        function copyTranscript(transcript) {
-            navigator.clipboard.writeText(transcript).then(() => {
-                alert('Transcript copied to clipboard!');
-            }).catch(err => {
-                console.error('Failed to copy transcript:', err);
-                alert('Failed to copy transcript. Please select and copy manually.');
-            });
-        }
-
-        function downloadTranscript(transcript) {
-            const blob = new Blob([transcript], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'panopto-transcript.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
+        // Initial tab activation
+        activateTab(tabs[0]);
     </script>
 </body>
 </html>
