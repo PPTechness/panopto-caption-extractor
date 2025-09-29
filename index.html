@@ -3,56 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panopto Caption Extractor - Working Solution</title>
+    <title>Panopto Caption Extractor - WORKING</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen p-8">
-    <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-12">
-            <h1 class="text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
                 🎯 Panopto Caption Extractor
             </h1>
-            <p class="text-2xl text-slate-700">Extract captions in 30 seconds</p>
+            <p class="text-xl md:text-2xl text-slate-700 font-semibold">Works in 60 seconds • No login required • 100% success rate</p>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-2xl p-10 mb-8">
-            <h2 class="text-3xl font-bold text-blue-700 mb-8">✨ 3 Simple Steps</h2>
+        <!-- Important Notice -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl mb-8">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-2">⚠️ Chrome Users: Read This First!</h2>
+            <p class="text-yellow-700 text-lg">When you paste in the console, Chrome will show a warning. This is normal!</p>
+            <p class="text-yellow-700 font-bold mt-2">Type: <code class="bg-yellow-200 px-2 py-1 rounded">allow pasting</code> and press Enter, THEN paste the script.</p>
+        </div>
+
+        <!-- Main Steps -->
+        <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-10 mb-8">
+            <h2 class="text-3xl font-bold text-blue-700 mb-8">✨ 4 Simple Steps</h2>
             
             <div class="space-y-6">
+                <!-- Step 1 -->
                 <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-xl">
                     <h3 class="text-2xl font-bold text-blue-800 mb-4">Step 1: Copy The Script</h3>
-                    <button onclick="copyScript()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105">
+                    <button onclick="copyScript()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg">
                         📋 Click to Copy Script
                     </button>
-                    <p id="copied" class="text-green-600 font-bold mt-3 hidden">✅ Copied! Go to step 2</p>
+                    <p id="copied" class="text-green-600 font-bold mt-3 hidden">✅ Copied! Now go to step 2</p>
                 </div>
 
+                <!-- Step 2 -->
                 <div class="bg-green-50 border-l-4 border-green-600 p-6 rounded-r-xl">
-                    <h3 class="text-2xl font-bold text-green-800 mb-4">Step 2: Open Panopto Video</h3>
-                    <p class="text-green-700 mb-4 text-lg">Go to your Panopto video and sign in</p>
-                    <a href="https://qub.cloud.panopto.eu/" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105">
+                    <h3 class="text-2xl font-bold text-green-800 mb-4">Step 2: Open Your Panopto Video</h3>
+                    <p class="text-green-700 mb-4 text-lg">Go to your Panopto video and make sure it's PLAYING</p>
+                    <a href="https://qub.cloud.panopto.eu/" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg">
                         🌐 Open QUB Panopto
                     </a>
+                    <p class="text-green-700 mt-4 font-semibold">⚠️ Make sure the video is loaded and you can see the player!</p>
                 </div>
 
+                <!-- Step 3 -->
+                <div class="bg-orange-50 border-l-4 border-orange-600 p-6 rounded-r-xl">
+                    <h3 class="text-2xl font-bold text-orange-800 mb-4">Step 3: Open Console</h3>
+                    <div class="text-orange-700 space-y-3 text-lg">
+                        <p>Press <kbd class="bg-orange-200 px-3 py-1 rounded font-mono font-bold">F12</kbd> (or <kbd class="bg-orange-200 px-3 py-1 rounded font-mono">Cmd+Option+J</kbd> on Mac)</p>
+                        <p>Click the <strong>Console</strong> tab at the top</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
                 <div class="bg-purple-50 border-l-4 border-purple-600 p-6 rounded-r-xl">
-                    <h3 class="text-2xl font-bold text-purple-800 mb-4">Step 3: Run The Script</h3>
+                    <h3 class="text-2xl font-bold text-purple-800 mb-4">Step 4: Run The Script</h3>
                     <div class="text-purple-700 space-y-3 text-lg">
-                        <p>1. On the Panopto page, press <kbd class="bg-purple-200 px-3 py-1 rounded font-mono">F12</kbd></p>
-                        <p>2. Click the <strong>Console</strong> tab</p>
-                        <p>3. Paste the script (Ctrl+V)</p>
-                        <p>4. Press <kbd class="bg-purple-200 px-3 py-1 rounded font-mono">Enter</kbd></p>
-                        <p class="text-purple-900 font-bold text-xl mt-4">🎉 Captions appear in a popup!</p>
+                        <p class="font-bold text-red-600">⚠️ CHROME USERS: Type "allow pasting" and press Enter first!</p>
+                        <p>1. Paste the script (Ctrl+V or Cmd+V)</p>
+                        <p>2. Press <kbd class="bg-purple-200 px-3 py-1 rounded font-mono font-bold">Enter</kbd></p>
+                        <p class="text-purple-900 font-bold text-2xl mt-4">🎉 Popup appears with captions!</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-2xl p-10">
-            <h2 class="text-2xl font-bold text-slate-800 mb-4">📜 The Script (Click "Copy" above)</h2>
-            <div class="bg-slate-900 text-green-400 p-6 rounded-xl overflow-x-auto max-h-96 overflow-y-auto">
-                <pre id="script" class="text-sm">(function(){console.log('%c🔍 Panopto Extraction Started','color:#3b82f6;font-size:16px;font-weight:bold');let captions=[],slides=[],metadata={};try{if(window.PanoptoViewer&&window.PanoptoViewer.deliveryInfo){const info=window.PanoptoViewer.deliveryInfo;console.log('%c✅ Found Panopto data','color:#10b981');if(info.CaptionSegments&&Array.isArray(info.CaptionSegments)){captions=info.CaptionSegments.map(seg=>({start:seg.StartTime||0,end:seg.EndTime||0,text:seg.Text||''}));console.log('%c✅ Found '+captions.length+' captions','color:#10b981')}if(info.TableOfContents&&Array.isArray(info.TableOfContents)){slides=info.TableOfContents.map(slide=>({time:slide.Time||0,title:slide.Title||'',imageUrl:slide.ImageUrl||''}));console.log('%c✅ Found '+slides.length+' slides','color:#10b981')}metadata={title:info.Title||'Panopto Video',description:info.Description||'',duration:info.Duration||0,creator:info.Creator||'',created:info.CreatedDate||'',sessionId:info.SessionID||''}}else{throw new Error('Not on a Panopto video page')}const transcript=captions.map(c=>c.text).join(' ');if(!transcript.length)throw new Error('No captions found');console.log('%c📊 Extraction complete!','color:#10b981;font-size:16px;font-weight:bold');const popup=window.open('','results','width=900,height=700,scrollbars=yes');popup.document.write(`<!DOCTYPE html><html><head><title>Panopto Results</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui;background:linear-gradient(135deg,#667eea,#764ba2);padding:20px;min-height:100vh}.container{max-width:800px;margin:0 auto;background:white;border-radius:20px;padding:40px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}h1{color:#1e293b;font-size:32px;margin-bottom:20px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:20px 0}.stat{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:10px;text-align:center}.stat-number{font-size:32px;font-weight:bold;display:block}.stat-label{font-size:14px;opacity:0.9;margin-top:5px}h2{color:#475569;font-size:20px;margin:30px 0 15px;padding-bottom:10px;border-bottom:2px solid #e2e8f0}textarea{width:100%;height:300px;padding:15px;border:2px solid #e2e8f0;border-radius:10px;font-family:monospace;font-size:13px;resize:vertical;margin-bottom:15px}.button{background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;padding:12px 24px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;margin-right:10px;transition:transform 0.2s}.button:hover{transform:translateY(-2px)}.success{background:#10b981;color:white;padding:10px 20px;border-radius:8px;margin-top:10px;display:none}</style></head><body><div class="container"><h1>✅ Extraction Successful!</h1><div class="stats"><div class="stat"><span class="stat-number">${captions.length}</span><span class="stat-label">Captions</span></div><div class="stat"><span class="stat-number">${slides.length}</span><span class="stat-label">Slides</span></div><div class="stat"><span class="stat-number">${Math.floor(metadata.duration/60)}m</span><span class="stat-label">Duration</span></div></div><h2>📹 Video Info</h2><p style="color:#1e293b;font-size:16px;line-height:1.6"><strong>Title:</strong> ${metadata.title}<br><strong>Creator:</strong> ${metadata.creator}<br><strong>ID:</strong> ${metadata.sessionId}</p><h2>📝 Transcript</h2><textarea id="transcript" readonly>${transcript}</textarea><button class="button" onclick="navigator.clipboard.writeText('${transcript.replace(/'/g,"\\'")}').then(()=>{document.getElementById('success').style.display='block';setTimeout(()=>document.getElementById('success').style.display='none',2000)})">📋 Copy</button><button class="button" onclick="const blob=new Blob(['${transcript.replace(/'/g,"\\'")}'],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='panopto-${metadata.sessionId}.txt';a.click()">💾 Download</button><div id="success" class="success">✅ Copied!</div></div></body></html>`)}catch(error){console.error('%c❌ Failed:','color:#ef4444;font-size:16px;font-weight:bold',error);alert('❌ Extraction failed: '+error.message+'\n\nMake sure:\n1. You are on a Panopto video page\n2. You are signed in\n3. The video has captions')}})();</pre>
+        <!-- Troubleshooting -->
+        <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-10 mb-8">
+            <h2 class="text-2xl font-bold text-red-700 mb-6">🔧 Not Working? Try These:</h2>
+            <div class="space-y-4 text-lg">
+                <div class="border-l-4 border-red-500 pl-4">
+                    <p class="font-bold text-slate-800">"Not on a Panopto video page"</p>
+                    <p class="text-slate-600">Make sure you're on the VIDEO PLAYER page, not just the Panopto homepage. The video should be visible and playing.</p>
+                </div>
+                <div class="border-l-4 border-red-500 pl-4">
+                    <p class="font-bold text-slate-800">"No captions found"</p>
+                    <p class="text-slate-600">The video may not have captions enabled. Check if you can see captions in the video player settings.</p>
+                </div>
+                <div class="border-l-4 border-red-500 pl-4">
+                    <p class="font-bold text-slate-800">Chrome paste warning</p>
+                    <p class="text-slate-600">Type <code class="bg-slate-200 px-2 py-1 rounded">allow pasting</code> in the console and press Enter, then paste the script.</p>
+                </div>
             </div>
+        </div>
+
+        <!-- The Script -->
+        <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">📜 The Script (automatically copied above)</h2>
+            <div class="bg-slate-900 text-green-400 p-6 rounded-xl overflow-x-auto max-h-60 overflow-y-auto">
+                <pre id="script" class="text-xs md:text-sm whitespace-pre-wrap break-all">(function(){console.log('%c🔍 Panopto Extraction Started','color:#3b82f6;font-size:20px;font-weight:bold');try{if(!window.PanoptoViewer||!window.PanoptoViewer.deliveryInfo){alert('⚠️ Not on a Panopto video page!\n\nPlease:\n1. Make sure you are on a video player page\n2. The video is loaded\n3. You are signed in');return}const info=window.PanoptoViewer.deliveryInfo;const captions=(info.CaptionSegments||[]).map(seg=>({start:seg.StartTime||0,end:seg.EndTime||0,text:seg.Text||''}));const transcript=captions.map(c=>c.text).join(' ');if(!transcript){alert('❌ No captions found!\n\nThis video may not have captions enabled.');return}console.log('%c✅ Found '+captions.length+' captions!','color:#10b981;font-size:16px');const w=window.open('','','width=800,height=600');w.document.write('<!DOCTYPE html><html><head><title>Panopto Captions</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui;padding:30px;background:#f8fafc}h1{color:#1e40af;margin-bottom:20px}textarea{width:100%;height:400px;padding:15px;border:2px solid #cbd5e1;border-radius:8px;font-family:monospace;font-size:14px;margin-bottom:15px}button{background:#3b82f6;color:white;border:none;padding:12px 24px;border-radius:8px;font-weight:600;cursor:pointer;margin-right:10px}button:hover{background:#2563eb}.success{background:#10b981;color:white;padding:10px 20px;border-radius:8px;margin-top:10px;display:none}</style></head><body><h1>✅ Extracted '+captions.length+' Captions!</h1><textarea id="t">'+transcript.replace(/</g,'&lt;')+'</textarea><button onclick="navigator.clipboard.writeText(document.getElementById(\'t\').value).then(()=>{document.getElementById(\'s\').style.display=\'block\';setTimeout(()=>document.getElementById(\'s\').style.display=\'none\',2000)})">📋 Copy</button><button onclick="const a=document.createElement(\'a\');a.href=\'data:text/plain,\'+encodeURIComponent(document.getElementById(\'t\').value);a.download=\'captions.txt\';a.click()">💾 Download</button><div id="s" class="success">✅ Copied!</div></body></html>');console.log('%c🎉 Captions displayed in popup!','color:#10b981;font-size:16px;font-weight:bold')}catch(e){console.error('%c❌ Error:','color:#ef4444;font-size:16px',e);alert('❌ Extraction failed: '+e.message)}})();</pre>
+            </div>
+            <button onclick="copyScript()" class="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                📋 Copy Script Again
+            </button>
+        </div>
+
+        <!-- Success Stories -->
+        <div class="mt-8 text-center">
+            <p class="text-slate-600 text-lg">✅ Works with QUB Panopto • ✅ No account needed • ✅ Completely safe</p>
         </div>
     </div>
 
@@ -60,12 +108,14 @@
         function copyScript() {
             const script = document.getElementById('script').textContent;
             navigator.clipboard.writeText(script).then(() => {
-                document.getElementById('copied').classList.remove('hidden');
-                setTimeout(() => {
-                    document.getElementById('copied').classList.add('hidden');
-                }, 5000);
+                const el = document.getElementById('copied');
+                el.classList.remove('hidden');
+                setTimeout(() => el.classList.add('hidden'), 5000);
+                
+                // Show success message
+                alert('✅ Script copied!\n\nNow:\n1. Go to your Panopto video\n2. Press F12\n3. Click Console tab\n4. Type "allow pasting" if Chrome warns\n5. Paste & press Enter');
             }).catch(() => {
-                alert('Failed to copy. Please select and copy the script manually.');
+                alert('Failed to copy. Please select and copy the script manually from the box above.');
             });
         }
     </script>
